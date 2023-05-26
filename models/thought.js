@@ -1,6 +1,7 @@
 // require necessary modules and create the thought schema
 const mongoose = require('mongoose');
 const { Schema, model } = mongoose;
+const reactionSchema = require('./reaction');
 
 // define thought schema using mongoose schema constructor
 const thoughtSchema = new Schema(
@@ -20,24 +21,7 @@ const thoughtSchema = new Schema(
             type: String,
             required: true,
         },
-        reactions: [
-            {
-                reactionBody: {
-                    type: String,
-                    required: true,
-                    maxLength: 280,
-                },
-                username: {
-                    type: String,
-                    required: true,
-                },
-                createdAt: {
-                    type: Date,
-                    default: Date.now,
-                    get: (timestamp) => formatDate(timestamp), // Optional: Use a getter method to format the timestamp
-                },
-            },
-        ],
+        reactions: [reactionSchema],
     },
     {
         toJSON: {
